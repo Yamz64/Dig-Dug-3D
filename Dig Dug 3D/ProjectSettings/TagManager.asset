@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - TerrainGenerator
+  - NavTree
+  - Enemy
+  - UI
+  - Halter
+  - MenuSoundSuppressor
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - PostProcessing
+  - Water
+  - UI
+  - Player
+  - WorldBounds
+  - Terrain
+  - Enemy
+  - Viewmodel
+  - Harpoon
+  - 3DSkybox
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

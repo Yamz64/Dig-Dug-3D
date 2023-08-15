@@ -23,5 +23,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameSceneNoCutscene.unity
     guid: 69036edbc5b17d04e808b996bbb63402
+  - enabled: 1
+    path: Assets/Scenes/UI/HighestScore.unity
+    guid: 7118adbdfd8fb934d91e883b6189af5c
+  - enabled: 1
+    path: Assets/Scenes/UI/HighScoreEntry.unity
+    guid: 85122465fb79fd94085c799389a2686e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

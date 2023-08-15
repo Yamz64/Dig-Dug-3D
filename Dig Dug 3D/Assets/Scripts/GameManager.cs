@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private Sprite[] flower_sprites;                    //0 = white, 1 = yellow, 2 = red
     private AudioSource end_sound;
     [SerializeField]
-    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!
+    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose
     [SerializeField]
     private List<Palette> ground_palettes;
     [SerializeField]
@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
     void RespawnPlayer(GameObject player)
     {
         lives--;
+
+        //see if the player has lost the game
+        if(lives <= 0)
+        {
+
+        }
 
         //set the player at the start
         player.GetComponent<Rigidbody>().position = Vector3.zero;

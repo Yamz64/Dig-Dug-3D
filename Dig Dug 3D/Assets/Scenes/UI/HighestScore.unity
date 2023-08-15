@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 92670332}
   - component: {fileID: 92670334}
   - component: {fileID: 92670333}
+  - component: {fileID: 92670335}
   m_Layer: 5
   m_Name: Highest Score
   m_TagString: Untagged
@@ -257,6 +258,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92670331}
   m_CullTransparentMesh: 1
+--- !u!95 &92670335
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92670331}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9e70f5ccbbcb29441a3dcb15bee2b888, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &323357126
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323357127}
   - component: {fileID: 323357128}
+  - component: {fileID: 323357129}
   m_Layer: 5
   m_Name: HighScorePanel
   m_TagString: Untagged
@@ -304,6 +328,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323357126}
   m_CullTransparentMesh: 1
+--- !u!114 &323357129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323357126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca725f77f099714aa60d0ba6f5b311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &336702063
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376667138}
   - component: {fileID: 376667139}
+  - component: {fileID: 376667140}
   m_Layer: 5
   m_Name: HighestScorePanel
   m_TagString: Untagged
@@ -381,8 +418,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1346875495}
-  - {fileID: 1419371037}
   - {fileID: 92670332}
+  - {fileID: 1419371037}
   - {fileID: 1637153996}
   m_Father: {fileID: 1189423981}
   m_RootOrder: -1
@@ -400,6 +437,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376667137}
   m_CullTransparentMesh: 1
+--- !u!114 &376667140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376667137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca725f77f099714aa60d0ba6f5b311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &386747854
 GameObject:
   m_ObjectHideFlags: 0

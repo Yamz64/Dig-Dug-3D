@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField]
     private int _score, _highscore, _level, _lives, _alive_enemies, _palette_index;
-    private bool next_level;
+    private bool next_level, high_score_broken, game_over;
     private GameObject ui;
     private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round
     [SerializeField]
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private Sprite[] flower_sprites;                    //0 = white, 1 = yellow, 2 = red
     private AudioSource end_sound;
     [SerializeField]
-    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose
+    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose, 4 = new high score!, 5 = high score loop
     [SerializeField]
     private List<Palette> ground_palettes;
     [SerializeField]
@@ -42,15 +42,50 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerMovement>().SetDying(false);
         player.GetComponent<PlayerMovement>().UnlockMovement();
     }
+
+    //Function handles all logic when a game should finish
+    IEnumerator FinishGame()
+    {
+        //play the game over jingle, wait until it's finished, then follow the proper scene loading logic
+        //load the highest score scene if the player has the highest score on this machine
+        //load the high score entry scene if the player has a top 5 score
+        //load into the main menu after everything is done
+        end_sound.clip = end_clips[3];
+        end_sound.Play();
+        yield return new WaitUntil(() => end_sound.isPlaying);
+        yield return new WaitUntil(() => !end_sound.isPlaying);
+
+        //high score scene
+        if (high_score_broken)
+        {
+            AsyncOperation next_scene = SceneManager.LoadSceneAsync("HighestScore");
+            yield return new WaitUntil(() => next_scene.isDone);
+            end_sound.clip = end_clips[4];
+            end_sound.Play();
+            yield return new WaitUntil(() => end_sound.isPlaying);
+            yield return new WaitUntil(() => !end_sound.isPlaying);
+        }
+
+        AsyncOperation title_screen = SceneManager.LoadSceneAsync("MainMenu");
+        yield return new WaitUntil(() => title_screen.isDone);
+        Destroy(gameObject);
+    }
+
     void RespawnPlayer(GameObject player)
     {
         lives--;
 
         //see if the player has lost the game
-        if(lives <= 0)
+        if(lives <= 0 && !game_over)
         {
-
+            game_over = true;
+            StartCoroutine(FinishGame());
+            return;
         }
+
+        if (game_over)
+            return;
+
 
         //set the player at the start
         player.GetComponent<Rigidbody>().position = Vector3.zero;
@@ -137,7 +172,10 @@ public class GameManager : MonoBehaviour
         set { 
             _score = value;
             if (_score > _highscore)
+            {
+                high_score_broken = true;
                 highscore = _score;
+            }
 
             if(ui != null)
             {
@@ -253,6 +291,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        high_score_broken = false;
+        game_over = false;
 
         ReloadUI();
 

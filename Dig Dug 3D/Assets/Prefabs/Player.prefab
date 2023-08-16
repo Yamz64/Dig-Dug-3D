@@ -1087,6 +1087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5043624821222905991}
   - component: {fileID: 6982804354778882547}
+  - component: {fileID: 155318689474927676}
   m_Layer: 0
   m_Name: ViewmodelCam
   m_TagString: Untagged
@@ -1161,6 +1162,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &155318689474927676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905140729923837481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2ec8de328b9f24e8c3245ecf4926e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov_preference: ViewmodelFOV
 --- !u!1 &2258114627534682374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1575,7 @@ GameObject:
   - component: {fileID: 5898348680003080862}
   - component: {fileID: 4365928943624419546}
   - component: {fileID: 424832299311725674}
+  - component: {fileID: 4009801364853076980}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1763,6 +1778,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4009801364853076980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419724648601538339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2ec8de328b9f24e8c3245ecf4926e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov_preference: FOV
 --- !u!1 &3711838112277670649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,6 +2287,7 @@ GameObject:
   - component: {fileID: 9178057712283433008}
   - component: {fileID: 3247110231321603202}
   - component: {fileID: 7266069564909377301}
+  - component: {fileID: 5684044044722028637}
   m_Layer: 0
   m_Name: PostProcessCam
   m_TagString: Untagged
@@ -2325,7 +2354,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -2392,6 +2421,19 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &5684044044722028637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307509904140265517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2ec8de328b9f24e8c3245ecf4926e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov_preference: FOV
 --- !u!1 &5803746970892838006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,6 +2969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1100783687425287399}
   - component: {fileID: 2185014774986493410}
+  - component: {fileID: 5179458889252725083}
   m_Layer: 0
   m_Name: WorldBoundCam
   m_TagString: Untagged
@@ -2993,13 +3036,26 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &5179458889252725083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481004161702164901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2ec8de328b9f24e8c3245ecf4926e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov_preference: FOV
 --- !u!1 &7495984873377792799
 GameObject:
   m_ObjectHideFlags: 0

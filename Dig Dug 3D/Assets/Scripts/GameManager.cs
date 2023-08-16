@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i=0; i<top_5.Length; i++)
         {
-            if (highscore > top_5[i])
+            if (score > top_5[i])
                 return true;
         }
         return false;

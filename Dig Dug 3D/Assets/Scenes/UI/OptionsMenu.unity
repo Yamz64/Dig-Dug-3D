@@ -1126,6 +1126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2812896558518136432, guid: dd21464222bc75242b9ce720b9b8d0b9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -163005222421049448, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
     - target: {fileID: 3431763875096218004, guid: dd21464222bc75242b9ce720b9b8d0b9, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1274,8 +1278,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 853010663}
   m_HandleRect: {fileID: 853010662}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.6056244
+  m_Value: 1
+  m_Size: 0.6056243
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5037,7 +5041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: slider_max
-      value: 180
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: slider_min

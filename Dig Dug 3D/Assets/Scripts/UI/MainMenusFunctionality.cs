@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MainMenusFunctionality : MonoBehaviour
 {
+    [SerializeField]
+    private AudioMixer master_mixer;
+
     //Generic Function for loading 
     public void LoadScene(string scene)
     {
@@ -59,15 +63,28 @@ public class MainMenusFunctionality : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        if (master_mixer != null)
+        {
+            if (PlayerPrefs.HasKey("SFXVolume"))
+            {
+                float volume_factor = PlayerPrefs.GetInt("SFXVolume") / 100.0f;
+                master_mixer.SetFloat("SFXVolume", Mathf.Lerp(-80.0f, 0.0f, volume_factor));
+            }
+            if (PlayerPrefs.HasKey("MusicVolume"))
+            {
+                float volume_factor = PlayerPrefs.GetInt("MusicVolume") / 100.0f;
+                master_mixer.SetFloat("MusicVolume", Mathf.Lerp(-80.0f, 0.0f, volume_factor));
+            }
+        }
 
         if (GameObject.FindGameObjectWithTag("MenuSoundSuppressor"))
             Destroy(GameObject.FindGameObjectWithTag("MenuSoundSuppressor"));
         else
         {
             AudioSource source = GetComponent<AudioSource>();
-
-            if (PlayerPrefs.HasKey("SFX"))
-                source.volume = PlayerPrefs.GetInt("SFX") / 100.0f;
             GetComponent<AudioSource>().Play();
         }
     }

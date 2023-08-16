@@ -67,13 +67,10 @@ public class OptionSlider : MonoBehaviour
         }
 
         //if this option is specified, then adjust an audio mixer instead
-        if (use_mixer)
-        {
-            master_mixer.SetFloat(preference_name, (int)Mathf.Lerp(-80.0f, 0.0f, value));
-            return;
-        }
-
         int preference_value = (int)Mathf.Lerp(slider_min, slider_max, value);
+        if (use_mixer)
+            master_mixer.SetFloat(preference_name, (int)Mathf.Lerp(-80.0f, 0.0f, value));
+
         PlayerPrefs.SetInt(preference_name, preference_value);
     }
 

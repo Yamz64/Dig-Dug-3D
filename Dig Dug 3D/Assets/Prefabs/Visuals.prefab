@@ -17518,6 +17518,7 @@ GameObject:
   - component: {fileID: 7494431355645539886}
   - component: {fileID: 5786423225653934751}
   - component: {fileID: 4659212585582271790}
+  - component: {fileID: 3447210181967071161}
   m_Layer: 12
   m_Name: 3DSkyboxCam
   m_TagString: Untagged
@@ -17603,6 +17604,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7c474508f02e140858f5f917884f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3447210181967071161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392963351021396559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2ec8de328b9f24e8c3245ecf4926e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov_preference: FOV
 --- !u!1 &6406188899236956279
 GameObject:
   m_ObjectHideFlags: 0
@@ -18883,7 +18897,7 @@ Transform:
   - {fileID: 6259221752294948765}
   - {fileID: 7518254682243309501}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7054458343203074115
 GameObject:

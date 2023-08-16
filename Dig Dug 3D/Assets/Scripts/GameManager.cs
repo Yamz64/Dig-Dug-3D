@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Dan.Main;
+using Dan.Models;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField]
     private int _score, _highscore, _level, _lives, _alive_enemies, _palette_index;
+    private int[] top_5;
+    private string leaderboard_public_key;
     private bool next_level, high_score_broken, game_over;
     private GameObject ui;
     private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round
@@ -64,6 +68,15 @@ public class GameManager : MonoBehaviour
             end_sound.Play();
             yield return new WaitUntil(() => end_sound.isPlaying);
             yield return new WaitUntil(() => !end_sound.isPlaying);
+        }
+
+        //name entry scene
+        if (IsTop5())
+        {
+            AsyncOperation next_scene = SceneManager.LoadSceneAsync("HighScoreEntry");
+            yield return new WaitUntil(() => next_scene.isDone);
+            HighscoreManager high_score_manager = GameObject.FindGameObjectWithTag("HighScoreManager").GetComponent<HighscoreManager>();
+            yield return new WaitUntil(() => high_score_manager.HighScoreSet());
         }
 
         AsyncOperation title_screen = SceneManager.LoadSceneAsync("MainMenu");
@@ -147,6 +160,29 @@ public class GameManager : MonoBehaviour
         level++;
         UpdateColors();
         StartCoroutine(LastEnemyRoutine());
+    }
+
+    //Function will get the top 5 scores to compare the highscore with later
+    public void LoadTop5() => LeaderboardCreator.GetLeaderboard(leaderboard_public_key, InitializeTop5);
+
+    //Function initializes the top 5 score once they have loaded
+    void InitializeTop5(Entry[] entries)
+    {
+        top_5 = new int[5];
+
+        for (int i = 0; i < entries.Length; i++)
+            top_5[i] = entries[i].Score;
+    }
+
+    //Function determines whether the highscore is a leaderboard score
+    bool IsTop5()
+    {
+        for(int i=0; i<top_5.Length; i++)
+        {
+            if (highscore > top_5[i])
+                return true;
+        }
+        return false;
     }
 
     public void UpdateColors()
@@ -294,6 +330,9 @@ public class GameManager : MonoBehaviour
 
         high_score_broken = false;
         game_over = false;
+
+        leaderboard_public_key = "ac8601e7913c6dc8376e5b79d95f7d8344d587e2a0d0305dcf3012166f787c46";
+        LoadTop5();
 
         ReloadUI();
 

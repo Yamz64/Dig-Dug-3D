@@ -299,5 +299,13 @@ public class PlayerMovement : MonoBehaviour
             GameManager.instance.score += 10;
             dig_score_timer = 1.0f;
         }
+
+        /* CHEAT INPUT FOR HIGHSCORE ENTRY
+        if (Input.GetKeyDown(KeyCode.BackQuote)) {
+            GameManager.instance.lives = 1;
+            GameManager.instance.score = GameManager.instance.highscore + 1;
+            dead = true;
+        }
+        */
     }
 }

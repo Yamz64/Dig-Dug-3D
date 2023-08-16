@@ -1274,8 +1274,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 853010663}
   m_HandleRect: {fileID: 853010662}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.6056243
+  m_Value: 1.0000001
+  m_Size: 0.6056244
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1352,16 +1352,24 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 4a6ba1e1598036345a63428013012321, type: 3}
+      propertyPath: use_mixer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674148695304969509, guid: 4a6ba1e1598036345a63428013012321, type: 3}
       propertyPath: slider_max
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6674148695304969509, guid: 4a6ba1e1598036345a63428013012321, type: 3}
+      propertyPath: master_mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
     - target: {fileID: 6674148695304969509, guid: 4a6ba1e1598036345a63428013012321, type: 3}
       propertyPath: default_value
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 4a6ba1e1598036345a63428013012321, type: 3}
       propertyPath: preference_name
-      value: Music
+      value: MusicVolume
       objectReference: {fileID: 0}
     - target: {fileID: 7395099851099323245, guid: 4a6ba1e1598036345a63428013012321, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2734,16 +2742,24 @@ PrefabInstance:
       value: SFX VOLUME
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
+      propertyPath: use_mixer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: slider_max
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
+      propertyPath: master_mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
     - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: default_value
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6674148695304969509, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: preference_name
-      value: SFX
+      value: SFXVolume
       objectReference: {fileID: 0}
     - target: {fileID: 7395099851099323245, guid: 3f91aef52c15a7a44909a06f508f4cc8, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3176,7 +3192,7 @@ AudioSource:
   m_GameObject: {fileID: 1474386067}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -163005222421049448, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
   m_audioClip: {fileID: 8300000, guid: 383970d78c01361458c4507790e55a83, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -3344,7 +3360,7 @@ AudioSource:
   m_GameObject: {fileID: 1560124926}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1068650980284066226, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
   m_audioClip: {fileID: 8300000, guid: 383970d78c01361458c4507790e55a83, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

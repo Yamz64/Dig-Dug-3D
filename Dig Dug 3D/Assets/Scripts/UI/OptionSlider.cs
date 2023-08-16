@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 public class OptionSlider : MonoBehaviour
 {
+    [SerializeField]
+    private bool use_mixer;
+
     [SerializeField]
     private int default_value, slider_min, slider_max;
 
@@ -18,6 +22,9 @@ public class OptionSlider : MonoBehaviour
 
     [SerializeField]
     private List<Sprite> monster_sprites;
+
+    [SerializeField]
+    private AudioMixer master_mixer;
 
     private AudioSource test_sound_volume;
 
@@ -51,10 +58,18 @@ public class OptionSlider : MonoBehaviour
     //Generic function to add a player preference entry to a string name
     public void AdjustSliderPreference(float value)
     {
+
         //if there is nothing provided then abort
         if (preference_name == "")
         {
             Debug.LogWarning("No preference name provided, aborting...");
+            return;
+        }
+
+        //if this option is specified, then adjust an audio mixer instead
+        if (use_mixer)
+        {
+            master_mixer.SetFloat(preference_name, (int)Mathf.Lerp(-80.0f, 0.0f, value));
             return;
         }
 
@@ -64,7 +79,6 @@ public class OptionSlider : MonoBehaviour
 
     public void PlaySound(float value)
     {
-        test_sound_volume.volume = value;
         if (!test_sound_volume.isPlaying)
             test_sound_volume.Play();
     }

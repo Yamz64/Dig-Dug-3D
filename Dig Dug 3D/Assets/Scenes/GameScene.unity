@@ -337,6 +337,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 621bc6b7648e59f46adbe7518d0085d2, type: 3}
   - {fileID: 8300000, guid: 6476f68e297dbbc4f9ecbefc2e58c52b, type: 3}
   - {fileID: 8300000, guid: 756b689b4c6813c4e84a58579cc85582, type: 3}
+  - {fileID: 8300000, guid: b81807c3b0f19764f8602cbbe13a8aea, type: 3}
   ground_palettes:
   - organic_color: {r: 0.87058824, g: 0.87058824, b: 0, a: 1}
     topsoil_color: {r: 1, g: 0.7176471, b: 0, a: 1}

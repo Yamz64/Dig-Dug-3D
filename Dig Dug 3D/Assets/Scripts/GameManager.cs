@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private int _score, _highscore, _level, _lives, _alive_enemies, _palette_index;
     private int[] top_5;
     private string leaderboard_public_key;
-    private bool next_level, high_score_broken, game_over;
+    private bool next_level, high_score_broken, game_over, first_bonus, second_bonus;
     private GameObject ui;
     private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round
     [SerializeField]
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private Sprite[] flower_sprites;                    //0 = white, 1 = yellow, 2 = red
     private AudioSource end_sound;
     [SerializeField]
-    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose, 4 = new high score!, 5 = high score loop
+    private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose, 4 = new high score!, 5 = 1UP
     [SerializeField]
     private List<Palette> ground_palettes;
     [SerializeField]
@@ -207,6 +207,24 @@ public class GameManager : MonoBehaviour
         get { return _score; }
         set { 
             _score = value;
+
+            //award a 1up if the player reaches a first and second bonus threshold
+            if(_score >= 20000 && !first_bonus)
+            {
+                first_bonus = true;
+                lives++;
+                end_sound.clip = end_clips[5];
+                end_sound.Play();
+            }
+
+            if (_score >= 60000 && !second_bonus)
+            {
+                first_bonus = true;
+                lives++;
+                end_sound.clip = end_clips[5];
+                end_sound.Play();
+            }
+
             if (_score > _highscore)
             {
                 high_score_broken = true;
@@ -330,6 +348,9 @@ public class GameManager : MonoBehaviour
 
         high_score_broken = false;
         game_over = false;
+
+        first_bonus = false;
+        second_bonus = false;
 
         leaderboard_public_key = "ac8601e7913c6dc8376e5b79d95f7d8344d587e2a0d0305dcf3012166f787c46";
         LoadTop5();

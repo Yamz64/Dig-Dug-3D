@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
 
             if (_score >= 60000 && !second_bonus)
             {
-                first_bonus = true;
+                second_bonus = true;
                 lives++;
                 end_sound.clip = end_clips[5];
                 end_sound.Play();

@@ -841,7 +841,8 @@ public class TerrainGeneration : MonoBehaviour
             {
                 valid_position = true;
                 chunk_index = Random.Range(0, chunks.Count);
-                if (chunks[chunk_index].chunk_GO.transform.position.magnitude < 8)
+                Vector3 chunk_xz = new Vector3(chunks[chunk_index].chunk_GO.transform.position.x, 0.0f, chunks[chunk_index].chunk_GO.transform.position.z);
+                if (chunk_xz.magnitude < 10.0f)
                     valid_position = false;
 
                 if (chunks[chunk_index].chunk_GO.transform.position.y > (GetMapDimensions().y / 2) * .6f)

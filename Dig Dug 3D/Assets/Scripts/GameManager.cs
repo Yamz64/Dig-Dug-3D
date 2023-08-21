@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
     {
         top_5 = new int[5];
 
-        for (int i = 0; i < entries.Length; i++)
+        for (int i = 0; i < top_5.Length; i++)
             top_5[i] = entries[i].Score;
     }
 
@@ -352,9 +352,6 @@ public class GameManager : MonoBehaviour
         first_bonus = false;
         second_bonus = false;
 
-        leaderboard_public_key = "ac8601e7913c6dc8376e5b79d95f7d8344d587e2a0d0305dcf3012166f787c46";
-        LoadTop5();
-
         ReloadUI();
 
         end_sound = GetComponent<AudioSource>();
@@ -371,6 +368,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         StartCoroutine(LastEnemyRoutine());
+    }
+
+    private void Start()
+    {
+        leaderboard_public_key = "ac8601e7913c6dc8376e5b79d95f7d8344d587e2a0d0305dcf3012166f787c46";
+        LoadTop5();
     }
 
     private void Update()

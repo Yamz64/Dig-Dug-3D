@@ -16,7 +16,7 @@ public class BaseEnemyAI : MonoBehaviour
     protected bool can_path_to_player, wandering, ghost, in_wall, already_checked_exit, can_reach_exit, reached_exit, is_being_pumped, dead;
     [SerializeField]
     protected bool[] last_enemy_flags;                            //flags for the last enemy's logic 0=is the last enemy, 1=reached the center of the map, 2=reached the surface, 3 = reached the edge of the map
-    protected Vector3 starting_position;
+    protected Vector3 starting_position, ghost_destination;
     protected NavTree nav_tree;
     protected TerrainGeneration generator;
     protected List<Vector3> path_queue;
@@ -284,6 +284,7 @@ public class BaseEnemyAI : MonoBehaviour
             else
             {
                 ghost = true;
+                SetGhostDestination();
                 in_wall = false;
                 GhostLogic(Vector3.zero);
             }
@@ -354,6 +355,7 @@ public class BaseEnemyAI : MonoBehaviour
             if(start_index == -1)
             {
                 ghost = true;
+                SetGhostDestination();
                 in_wall = false;
                 return;
             }
@@ -377,6 +379,7 @@ public class BaseEnemyAI : MonoBehaviour
                 if (start_index == -1)
                 {
                     ghost = true;
+                    SetGhostDestination();
                     in_wall = false;
                     return;
                 }
@@ -392,6 +395,20 @@ public class BaseEnemyAI : MonoBehaviour
         }
     }
 
+    //Function readies a destination for the enemy before ghosting
+    void SetGhostDestination()
+    {
+        int destination_index = -1;
+        Vector3 destination = GameObject.FindGameObjectWithTag("Player").transform.position;
+        NavTree.NavNode destination_node = nav_tree.GetClosestNodeToPoint(destination, ref destination_index);
+
+        if(destination_node == null)
+        {
+            ghost_destination = destination;
+            return;
+        }
+        ghost_destination = destination_node.position;
+    }
 
     //AI state that handles what happens when the enemy is ghosting to a point
     void GhostLogic(Vector3 destination)
@@ -408,6 +425,7 @@ public class BaseEnemyAI : MonoBehaviour
         if (in_wall) {
             int closest_index = -1;
             NavTree.NavNode closest_node = nav_tree.GetClosestNodeToPoint(transform.position, ref closest_index);
+
             if (closest_node == null)
                 return;
 
@@ -514,6 +532,7 @@ public class BaseEnemyAI : MonoBehaviour
                 if (wander_timer <= 0)
                 {
                     ghost = true;
+                    SetGhostDestination();
                     in_wall = false;
                     wandering = false;
                     wander_timer = wander_timer_max;
@@ -525,7 +544,7 @@ public class BaseEnemyAI : MonoBehaviour
                 }
             }
             else
-                GhostLogic(GameObject.FindGameObjectWithTag("Player").transform.position);
+                GhostLogic(ghost_destination);
         }
     }
 

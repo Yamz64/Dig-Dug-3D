@@ -5406,6 +5406,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2812896558518136432, guid: dd21464222bc75242b9ce720b9b8d0b9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -163005222421049448, guid: c4336932e00866a46b0df0e10b4f5cca, type: 2}
     - target: {fileID: 3431763875096218004, guid: dd21464222bc75242b9ce720b9b8d0b9, type: 3}
       propertyPath: m_RootOrder
       value: 4

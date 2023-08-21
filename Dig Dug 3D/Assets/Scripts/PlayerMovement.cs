@@ -300,11 +300,9 @@ public class PlayerMovement : MonoBehaviour
             dig_score_timer = 1.0f;
         }
 
-        /*
         //CHEAT INPUT FOR HIGHSCORE ENTRY
         if (Input.GetKeyDown(KeyCode.BackQuote)) {
             GameManager.instance.score = 20000;
         }
-        */
     }
 }

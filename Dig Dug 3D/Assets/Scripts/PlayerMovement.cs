@@ -242,7 +242,6 @@ public class PlayerMovement : MonoBehaviour
             move_dir = animation_dir;
 
         //dig in the direction you're moving
-
         Dig(move_dir);
 
         if (dig_slow_timer <= 0)

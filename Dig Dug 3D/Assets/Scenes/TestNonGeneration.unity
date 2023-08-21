@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 1779775937}
   - component: {fileID: 1779775936}
   - component: {fileID: 1779775940}
+  - component: {fileID: 1779775941}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -1093,7 +1094,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779775935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7, y: 0.8, z: 2.1839988}
+  m_LocalPosition: {x: 1.7, y: 3.3, z: 2.1839988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1124,6 +1125,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1779775941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779775935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486bb78b2cda7be40b3e4877eef474e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  show_hitbox: 1
 --- !u!1 &1928177741
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,6 +72,14 @@ public class FygarAI : BaseEnemyAI
     //It decrements a timer before entering the fire state, in which it emits flames
     public override void AI()
     {
+        //don't do anything if you're squished
+        if (squished)
+        {
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+                Physics.IgnoreCollision(GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>(), GetComponent<Collider>());
+            return;
+        }
+
         //interrupt any firing attempts if you're inflating
         if (pump_level > 0)
         {

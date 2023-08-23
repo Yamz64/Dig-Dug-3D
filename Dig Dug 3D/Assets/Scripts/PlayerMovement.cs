@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private bool starting_animation, dying;
     private bool dead;
     [HideInInspector]
-    public bool lock_movement;
+    public bool lock_movement, harpoon_lock, squished;
     [SerializeField]
     private float dig_speed, move_speed, mouse_sens, dig_slow_timer;
     [SerializeField]
@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetDead(bool d) { dead = d; main_camera.GetComponent<Animator>().SetBool("Dead", false); }
 
     public void SetDying(bool d) { dying = d; }
+
+    public void SetSquished(bool s) { 
+        squished = s;
+        Physics.IgnoreLayerCollision(6, 9, s);
+    }
 
     public float[] GetLayerOffsets() { return layer_offsets; }
 
@@ -271,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!lock_movement && !dying)
+        if (!lock_movement && !dying && !harpoon_lock)
         {
             Look();
             Move();

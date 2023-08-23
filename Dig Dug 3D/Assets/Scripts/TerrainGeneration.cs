@@ -16,6 +16,8 @@ public class TerrainGeneration : MonoBehaviour
                                         //sorted by X then Y then Z
     private NavTree nav_tree;
     [SerializeField]
+    GameObject rock;
+    [SerializeField]
     GameObject[] enemies;
 
     public bool GetFinished() { return finished_generating; }
@@ -39,6 +41,7 @@ public class TerrainGeneration : MonoBehaviour
         public BitArray[,] terrain_data;
         public GameObject chunk_GO;
         private int index;
+        private bool modified;
         private float voxel_size;
         private Vector3Int dimensions, c_dim;
         public List<Chunk> chunk_data;
@@ -49,11 +52,17 @@ public class TerrainGeneration : MonoBehaviour
             get { return dimensions; }
         }
 
+        public bool Modified
+        {
+            get { return modified; }
+        }
+
         //Constructor takes game object to instance to, voxel size, and Vector3Int dimensions in voxels
         public Chunk(GameObject g, float v, Vector3Int d, Vector3Int c_d, in List<Chunk> c_dat) 
         {
             chunk_GO = g;
             index = int.Parse(g.name.Split(' ')[1]);
+            modified = false;
             voxel_size = v;
 
             //First initialize the terrain data to be a big cube of voxel data
@@ -528,6 +537,7 @@ public class TerrainGeneration : MonoBehaviour
                 return;
             }
 
+            modified = true;
             terrain_data[voxel_location.x, voxel_location.y].Set(voxel_location.z, false);
             GenerateMesh();
             if (chunk_GO.GetComponent<MeshFilter>().mesh.vertexCount > 0)
@@ -565,6 +575,7 @@ public class TerrainGeneration : MonoBehaviour
                 if (skip_erode)
                     continue;
 
+                modified = true;
                 terrain_data[voxel_locations[i].x, voxel_locations[i].y].Set(voxel_locations[i].z, false);
 
                 //mark border chunks for updating
@@ -849,6 +860,40 @@ public class TerrainGeneration : MonoBehaviour
                     valid_position = false;
             }
             GenerateCave(chunks[chunk_index].chunk_GO.transform.position, erode_radius, Random.Range(2, 4), true);
+        }
+
+        GenerateRocks();
+    }
+
+    //function will erode a spot and then spawn a rock at teh given chunk
+    public void GenerateRock(int index)
+    {
+        ErodeChunkSphereAtLocation(index, 6, chunks[index].chunk_GO.transform.position);
+        Instantiate(rock, chunks[index].chunk_GO.transform.position - rock.GetComponent<BoxCollider>().center, Quaternion.identity);
+    }
+
+    //function will attempt to generate a random amount of rocks, provided that those chunks have not been modified
+    public void GenerateRocks()
+    {
+        int num_rocks = Random.Range(8, 16);
+
+        for(int i=0; i<num_rocks; i++)
+        {
+            bool valid_position = false;
+            int chunk_index = 0;
+            while (!valid_position)
+            {
+                valid_position = true;
+                chunk_index = Random.Range(0, chunks.Count);
+
+                //the chunk cannot be modified, or too close to the surface
+                if (chunks[chunk_index].Modified)
+                    valid_position = false;
+
+                if (chunks[chunk_index].chunk_GO.transform.position.y > (GetMapDimensions().y / 2) * .6f)
+                    valid_position = false;
+            }
+            GenerateRock(chunk_index);
         }
     }
 

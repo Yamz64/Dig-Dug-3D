@@ -14,6 +14,7 @@ public class BaseEnemyAI : MonoBehaviour
     protected float player_pathfind_timer_max, wander_timer_max, pump_timer_max;
     [SerializeField]
     protected bool can_path_to_player, wandering, ghost, in_wall, already_checked_exit, can_reach_exit, reached_exit, is_being_pumped, dead;
+    protected bool squished;
     [SerializeField]
     protected bool[] last_enemy_flags;                            //flags for the last enemy's logic 0=is the last enemy, 1=reached the center of the map, 2=reached the surface, 3 = reached the edge of the map
     protected Vector3 starting_position, ghost_destination;
@@ -45,6 +46,10 @@ public class BaseEnemyAI : MonoBehaviour
     }
 
     public bool GetGhost() { return ghost; }
+
+    public bool GetSquished() { return squished; }
+
+    public void SetSquished(bool s) { squished = s; }
 
     public int GetPumpLevel() { return pump_level; }
 
@@ -481,6 +486,14 @@ public class BaseEnemyAI : MonoBehaviour
     //Overrideable function that determines the basic logic of an enemy
     public virtual void AI()
     {
+        //don't do anything if you're squished
+        if (squished)
+        {
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+                Physics.IgnoreCollision(GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>(), GetComponent<Collider>());
+            return;
+        }
+
         //don't do anything if you're dead
         if (dead)
             return;
@@ -558,6 +571,7 @@ public class BaseEnemyAI : MonoBehaviour
         already_checked_exit = false;
         can_reach_exit = false;
         reached_exit = false;
+        squished = false;
 
         last_enemy_flags = new bool[4] { false, false, false, false };
 

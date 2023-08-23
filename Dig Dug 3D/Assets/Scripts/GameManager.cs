@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
         //set the player at the start
         player.GetComponent<Rigidbody>().position = Vector3.zero;
         player.GetComponent<PlayerMovement>().SetDead(false);
+        player.GetComponent<PlayerMovement>().SetSquished(false);
         player.GetComponent<PlayerMovement>().ResetCameraPosition();
         player.GetComponent<PlayerMovement>().LockMovement();
 

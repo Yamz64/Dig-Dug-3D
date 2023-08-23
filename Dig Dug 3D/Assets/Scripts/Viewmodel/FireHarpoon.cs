@@ -36,7 +36,7 @@ public class FireHarpoon : MonoBehaviour
         //cleanup any harpoons
         if (harpoon_timer <= 0)
         {
-            movement.lock_movement = false;
+            movement.harpoon_lock = false;
             if (harpoon_instance != null)
             {
                 Destroy(harpoon_instance);
@@ -44,7 +44,7 @@ public class FireHarpoon : MonoBehaviour
             }
         }
         else
-            movement.lock_movement = true;
+            movement.harpoon_lock = true;
 
         //see if we should fire a harpoon, only fire if we're ready
         if (Input.GetMouseButtonDown(0))

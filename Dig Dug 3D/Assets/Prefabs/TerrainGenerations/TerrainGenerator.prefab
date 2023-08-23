@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a567c57387562c42bac46c65c1109cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slow: 0
   erode_radius: 7
   erode_location: {x: 0, y: 0, z: 0}
   chunk_voxel_dim: {x: 9, y: 10, z: 9}
@@ -51,6 +52,7 @@ MonoBehaviour:
   voxel_size: 0.2
   cave_erosion_error: 0.0000001
   terrain_mat: {fileID: 2100000, guid: e653b44e320f07847a959e52d6e7ce7b, type: 2}
+  rock: {fileID: 5027519914504046728, guid: 5f72d5f45f683344d9937f8a4ab5fa1b, type: 3}
   enemies:
   - {fileID: 1119339187551261018, guid: be9b7c427e3ffbe44b363b0588454045, type: 3}
   - {fileID: 1119339187551261018, guid: 5f1b9703ce5360249851ed6c41097f57, type: 3}

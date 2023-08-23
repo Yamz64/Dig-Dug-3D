@@ -43,7 +43,9 @@ public class PookaAnimation : MonoBehaviour
     //Function updates between walking, ghosting, and inflating
     void UpdateAnimationState()
     {
-        
+        if (ai.GetSquished())
+            anim.SetBool("Squish", true);
+
         anim.SetInteger("Inflate", ai.GetPumpLevel());
         if (ai.GetGhost())
         {

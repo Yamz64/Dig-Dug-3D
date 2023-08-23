@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     [SerializeField]
-    private int _score, _highscore, _level, _lives, _alive_enemies, _palette_index;
+    private int _score, _highscore, _level, _lives, _alive_enemies, _palette_index, _rocks_dropped;
     private int[] top_5;
     private string leaderboard_public_key;
     private bool next_level, high_score_broken, game_over, first_bonus, second_bonus;
@@ -318,6 +318,12 @@ public class GameManager : MonoBehaviour
         set { _alive_enemies = value; }
     }
 
+    public int rocks_dropped
+    {
+        get { return _rocks_dropped; }
+        set { _rocks_dropped = value; }
+    }
+
     public void ReloadUI()
     {
         if (GameObject.FindGameObjectWithTag("UI") != null)
@@ -340,6 +346,7 @@ public class GameManager : MonoBehaviour
         highscore = PlayerPrefs.GetInt("Highscore");
         level = _level;
         lives = _lives;
+        rocks_dropped = 0;
     }
 
     // Start is called before the first frame update
@@ -361,6 +368,8 @@ public class GameManager : MonoBehaviour
 
         level = 1;
         lives = 3;
+
+        rocks_dropped = 0;
 
         _palette_index = 0;
 

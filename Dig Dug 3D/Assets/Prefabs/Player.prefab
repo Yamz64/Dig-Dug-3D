@@ -752,6 +752,8 @@ MonoBehaviour:
   starting_animation: 0
   dying: 0
   lock_movement: 0
+  harpoon_lock: 0
+  squished: 0
   dig_speed: 2
   move_speed: 3
   mouse_sens: 2
@@ -1640,7 +1642,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2943
+    m_Bits: 11135
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

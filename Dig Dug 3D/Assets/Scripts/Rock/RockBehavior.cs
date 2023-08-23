@@ -58,7 +58,8 @@ public class RockBehavior : MonoBehaviour
                 if (!player.GetDying())
                     player.Die();
             }
-            Destroy(gameObject);
+            DestructionSequence();
+            yield return null;
         }
 
         //if this rock hit nothing, then wait for the rock to collide with the ground, then break
@@ -66,7 +67,16 @@ public class RockBehavior : MonoBehaviour
         anim.SetBool("Break", true);
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Break"));
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        Destroy(gameObject);        
+        DestructionSequence();    
+    }
+
+    //Helper function to avoid warnings
+    void DestructionSequence()
+    {
+        if (GameManager.instance != null)
+            GameManager.instance.rocks_dropped++;
+        StopCoroutine(FallSequence());
+        Destroy(gameObject);
     }
 
     //Function will boxcast down looking for the highest point underneath it.  If it changes, and the player is not blocking this rock, then start to fall
@@ -151,7 +161,7 @@ public class RockBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain") || collision.gameObject.layer == LayerMask.NameToLayer("WorldBounds"))
             hit_ground = true;
     }
 }

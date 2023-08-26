@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private GameObject ui;
     private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round
     [SerializeField]
-    GameObject flower_prefab;
+    private GameObject flower_prefab, vegetable;
     [SerializeField]
     private Sprite[] flower_sprites;                    //0 = white, 1 = yellow, 2 = red
     private AudioSource end_sound;
@@ -321,7 +321,11 @@ public class GameManager : MonoBehaviour
     public int rocks_dropped
     {
         get { return _rocks_dropped; }
-        set { _rocks_dropped = value; }
+        set { 
+            _rocks_dropped = value;
+            if (_rocks_dropped == 2)
+                Instantiate(vegetable, Vector3.zero, Quaternion.identity);
+        }
     }
 
     public void ReloadUI()
@@ -366,7 +370,7 @@ public class GameManager : MonoBehaviour
 
         score = 0;
 
-        level = 1;
+        level = 3;
         lives = 3;
 
         rocks_dropped = 0;

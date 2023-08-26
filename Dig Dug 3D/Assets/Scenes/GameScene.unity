@@ -326,7 +326,9 @@ MonoBehaviour:
   _lives: 0
   _alive_enemies: 0
   _palette_index: 0
+  _rocks_dropped: 0
   flower_prefab: {fileID: 5665709605718013321, guid: 6253c06d587431e42a928ef8af632deb, type: 3}
+  vegetable: {fileID: 1418398041003505585, guid: e45d6d8610836ea4ba8ba8a2595c678f, type: 3}
   flower_sprites:
   - {fileID: 21300000, guid: e15433e89ad9da6469966c88dac7574d, type: 3}
   - {fileID: 21300000, guid: c609534f952772044bf9e58a31a7e8b8, type: 3}

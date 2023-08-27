@@ -159,8 +159,9 @@ public class RockBehavior : MonoBehaviour
         GetComponent<AudioEchoFilter>().dryMix = player_echo.dryMix;
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject);
         if (collision.gameObject.layer == LayerMask.NameToLayer("Terrain") || collision.gameObject.layer == LayerMask.NameToLayer("WorldBounds"))
             hit_ground = true;
     }

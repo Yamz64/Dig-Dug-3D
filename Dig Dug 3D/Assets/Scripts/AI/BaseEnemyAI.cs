@@ -429,10 +429,6 @@ public class BaseEnemyAI : MonoBehaviour
         //move towards the destination
         rb.velocity = (destination - transform.position).normalized * move_speed * 0.5f;
 
-        Debug.DrawLine(destination, destination + Vector3.up, Color.white);
-        Debug.DrawLine(destination, destination + Vector3.right, Color.white);
-        Debug.DrawLine(destination, destination + Vector3.forward, Color.white);
-
         //if this enemy is in a wall then wait until it gets close enough to another pathfinding node
         if (in_wall) {
             int closest_index = -1;
@@ -442,7 +438,8 @@ public class BaseEnemyAI : MonoBehaviour
                 return;
 
             //when close enough to a pathfinding node, stop ghosting
-            if (Vector3.Distance(transform.position, closest_node.position) < GetComponent<Collider>().bounds.extents.x / 1.25f)
+            if (Vector3.Distance(transform.position, closest_node.position) < GetComponent<Collider>().bounds.extents.x / 1.25f ||
+                Vector3.Distance(transform.position, destination) < GetComponent<Collider>().bounds.extents.x / 1.25f)
             {
                 GetComponent<Collider>().isTrigger = false;
                 ghost = false;

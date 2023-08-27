@@ -11,6 +11,7 @@ TagManager:
   - Halter
   - MenuSoundSuppressor
   - HighScoreManager
+  - VegetableWaypoint
   layers:
   - Default
   - TransparentFX

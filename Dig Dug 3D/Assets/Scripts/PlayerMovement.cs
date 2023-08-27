@@ -37,9 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetCameraPosition() 
     {
-
         main_camera.transform.localPosition = new Vector3(0.0f, 0.25f, 0.0f);
-        main_camera.transform.rotation = Quaternion.identity; 
+        main_camera.transform.rotation = Quaternion.identity;
+        rot_x = 0;
+        rot_y = 0;
     }
 
     public bool IsReady() { return !starting_animation && !dying; }

@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5054403365600851396
 MeshFilter:
@@ -228,6 +228,18 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4641680b1b77d0b44a75ef904e05ee3c, type: 3}
   - {fileID: 2800000, guid: 5b77366df1d9c0a4aa0cf10e939b2577, type: 3}
   - {fileID: 2800000, guid: 1a00a48c152683a4bba5b7cf3659fae6, type: 3}
+  vegetable_sprites:
+  - {fileID: 21300000, guid: 37af7559ec4692c418bfe8426c795512, type: 3}
+  - {fileID: 21300000, guid: 9f71d5acd2a9144439eb482f655cddbb, type: 3}
+  - {fileID: 21300000, guid: 90e7b63547137e54bb2c632088ac461d, type: 3}
+  - {fileID: 21300000, guid: 735fb9b5590ebb24fbdfe3160e6ab693, type: 3}
+  - {fileID: 21300000, guid: 7d653ac6df4ba3147aa2e2c36f7de004, type: 3}
+  - {fileID: 21300000, guid: 293795d6d704602489f01557057b6dd2, type: 3}
+  - {fileID: 21300000, guid: 7b84fbeb574e6a04a95c179cfd93b4d1, type: 3}
+  - {fileID: 21300000, guid: 5fa6f35fab1431a45a90e33423a15449, type: 3}
+  - {fileID: 21300000, guid: 3049606294920d74a85596dd26215ca8, type: 3}
+  - {fileID: 21300000, guid: 50980373df2eb32478c7978ed389b822, type: 3}
+  - {fileID: 21300000, guid: 77d4a3442ee48de4facb329bad63f156, type: 3}
   vegetable_models:
   - {fileID: -2432090755550338912, guid: e932d75c70a22764597c7e02f9c0662b, type: 3}
   - {fileID: -2432090755550338912, guid: b8e558eb39f592c4f9905393da89161c, type: 3}

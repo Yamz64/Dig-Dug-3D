@@ -27,6 +27,7 @@ public class BaseEnemyAI : MonoBehaviour
     public virtual IEnumerator DeathSequence()
     {
         pop_sound.Play();
+        dead = true;
         //calculate points based on how high up the enemy is
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
@@ -46,6 +47,8 @@ public class BaseEnemyAI : MonoBehaviour
     }
 
     public bool GetGhost() { return ghost; }
+
+    public bool GetDead() { return dead; }
 
     public bool GetSquished() { return squished; }
 
@@ -244,7 +247,7 @@ public class BaseEnemyAI : MonoBehaviour
         //get the target node, if it is far away, move towards it, if not, remove it from the path queue
         Vector3 target_node = path_queue[0];
 
-        if(Vector3.Distance(target_node, transform.position) >= move_speed * Time.deltaTime * 5.0f)
+        if (Vector3.Distance(target_node, transform.position) >= move_speed * Time.deltaTime * 5.0f)
         {
             rb.velocity = (target_node - transform.position).normalized * move_speed;
             return;
@@ -425,6 +428,10 @@ public class BaseEnemyAI : MonoBehaviour
 
         //move towards the destination
         rb.velocity = (destination - transform.position).normalized * move_speed * 0.5f;
+
+        Debug.DrawLine(destination, destination + Vector3.up, Color.white);
+        Debug.DrawLine(destination, destination + Vector3.right, Color.white);
+        Debug.DrawLine(destination, destination + Vector3.forward, Color.white);
 
         //if this enemy is in a wall then wait until it gets close enough to another pathfinding node
         if (in_wall) {

@@ -27,11 +27,13 @@ public class GameManager : MonoBehaviour
     private string leaderboard_public_key;
     private bool next_level, high_score_broken, game_over, first_bonus, second_bonus;
     private GameObject ui;
-    private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round
+    private GameObject[] ui_elements;                   //0 = score, 1 = high score, 2 = lives, 3 = flowers, 4 = round, 5 = enemy count
     [SerializeField]
-    private GameObject flower_prefab, vegetable;
+    private GameObject flower_prefab, e_count_prefab, vegetable;
     [SerializeField]
     private Sprite[] flower_sprites;                    //0 = white, 1 = yellow, 2 = red
+    [SerializeField]
+    private Sprite[] e_count_sprites;                   //0 = pooka, 1 = fygar
     private AudioSource end_sound;
     [SerializeField]
     private AudioClip[] end_clips;                      //0 = escaping, 1 = completed, 2 = last one walk!, 3 = lose, 4 = new high score!, 5 = 1UP
@@ -123,19 +125,23 @@ public class GameManager : MonoBehaviour
         //wait until 1 enemy remains
         yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length > 0);
         _alive_enemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        yield return new WaitUntil(() => _alive_enemies == 1);
+        RefreshEnemyCount();
+        yield return new WaitUntil(() => _alive_enemies <= 1);
 
-        //mark the last enemy as ready to escape and wait for it to have escaped or died
-        BaseEnemyAI enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemyAI>();
-        end_sound.clip = end_clips[0];
-        end_sound.Play();
-        GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].Stop();
-        yield return new WaitUntil(() => !end_sound.isPlaying);
-        GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].clip = end_clips[2];
-        GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].Play();
-        yield return new WaitUntil(() => !enemy.GetGhost());
-        enemy.Escape();
-        yield return new WaitUntil(() => enemy.Escaped() || _alive_enemies == 0);
+        //if the player hasn't killed every enemy, mark the last enemy as ready to escape and wait for it to have escaped or died
+        if (_alive_enemies > 0)
+        {
+            BaseEnemyAI enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BaseEnemyAI>();
+            end_sound.clip = end_clips[0];
+            end_sound.Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].Stop();
+            yield return new WaitUntil(() => !end_sound.isPlaying);
+            GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].clip = end_clips[2];
+            GameObject.FindGameObjectWithTag("Player").GetComponents<AudioSource>()[0].Play();
+            yield return new WaitUntil(() => !enemy.GetGhost());
+            enemy.Escape();
+            yield return new WaitUntil(() => enemy.Escaped() || _alive_enemies == 0);
+        }
         end_sound.clip = end_clips[1];
         end_sound.Play();
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().SetDying(true);
@@ -315,7 +321,11 @@ public class GameManager : MonoBehaviour
     public int alive_enemies
     {
         get { return _alive_enemies; }
-        set { _alive_enemies = value; }
+        set { 
+            _alive_enemies = value;
+
+            RefreshEnemyCount();
+        }
     }
 
     public int rocks_dropped
@@ -328,19 +338,63 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Function will attempt to adjust the enemy count whenever it's changed
+    void RefreshEnemyCount()
+    {
+        if (ui_elements[5] == null)
+            return;
+
+        //first clear all children, then spawn 1 child for each fygar or pooka, currently in the game
+        foreach(Transform child in ui_elements[5].transform)
+            Destroy(child.gameObject);
+
+        int pooka_count = 0;
+        int fygar_count = 0;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        for(int i=0; i<enemies.Length; i++)
+        {
+            if (enemies[i].name.Substring(0, 5) == "Pooka") {
+                if (!enemies[i].GetComponent<BaseEnemyAI>().GetDead() && !enemies[i].GetComponent<BaseEnemyAI>().GetSquished())
+                {
+                    pooka_count++;
+                    continue;
+                }
+            }
+            if (enemies[i].name.Substring(0, 5) == "Fygar")
+            {
+                if (!enemies[i].GetComponent<FygarAI>().GetDead() && !enemies[i].GetComponent<FygarAI>().GetSquished())
+                    fygar_count++;
+            }
+        }
+
+        for(int i=0; i<pooka_count; i++)
+        {
+            Instantiate(e_count_prefab, ui_elements[5].transform);
+            e_count_prefab.GetComponent<Image>().sprite = e_count_sprites[0];
+        }
+
+        for (int i = 0; i < fygar_count; i++)
+        {
+            Instantiate(e_count_prefab, ui_elements[5].transform);
+            e_count_prefab.GetComponent<Image>().sprite = e_count_sprites[1];
+        }
+    }
+
     public void ReloadUI()
     {
         if (GameObject.FindGameObjectWithTag("UI") != null)
         {
             ui = GameObject.FindGameObjectWithTag("UI");
 
-            ui_elements = new GameObject[5];
+            ui_elements = new GameObject[6];
 
             ui_elements[0] = ui.transform.GetChild(1).gameObject;
             ui_elements[1] = ui.transform.GetChild(2).gameObject;
             ui_elements[2] = ui.transform.GetChild(3).gameObject;
             ui_elements[3] = ui.transform.GetChild(4).gameObject;
             ui_elements[4] = ui.transform.GetChild(5).gameObject;
+            ui_elements[5] = ui.transform.GetChild(6).gameObject;
         }
 
         score = _score;

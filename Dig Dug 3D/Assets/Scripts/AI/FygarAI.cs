@@ -16,6 +16,7 @@ public class FygarAI : BaseEnemyAI
 
     public override IEnumerator DeathSequence()
     {
+        dead = true;
         pop_sound.Play();
         //calculate points based on how high up the enemy is and if the player itself is close to the same height of the fygar
         if (GameObject.FindGameObjectWithTag("Player") != null)

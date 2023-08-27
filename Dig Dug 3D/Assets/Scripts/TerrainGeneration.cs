@@ -886,8 +886,12 @@ public class TerrainGeneration : MonoBehaviour
                 valid_position = true;
                 chunk_index = Random.Range(0, chunks.Count);
 
-                //the chunk cannot be modified, or too close to the surface
+                //the chunk cannot be modified, too close to the center of the map, or too close to the surface
                 if (chunks[chunk_index].Modified)
+                    valid_position = false;
+
+                Vector3 chunk_xz = new Vector3(chunks[chunk_index].chunk_GO.transform.position.x, 0.0f, chunks[chunk_index].chunk_GO.transform.position.z);
+                if (chunk_xz.magnitude < 10.0f)
                     valid_position = false;
 
                 if (chunks[chunk_index].chunk_GO.transform.position.y > (GetMapDimensions().y / 2) * .6f)

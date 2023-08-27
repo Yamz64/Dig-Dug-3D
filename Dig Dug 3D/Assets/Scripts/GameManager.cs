@@ -370,7 +370,7 @@ public class GameManager : MonoBehaviour
 
         score = 0;
 
-        level = 3;
+        level = 1;
         lives = 3;
 
         rocks_dropped = 0;

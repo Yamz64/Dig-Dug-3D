@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draw_connections: 1
+  draw_chunk_borders: 1
+  draw_near_player: 1
   min_nav_distance: 1.25
   nav_tree_dimensions: {x: 10, y: 10, z: 10}

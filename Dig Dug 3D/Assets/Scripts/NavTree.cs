@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NavTree : MonoBehaviour
 {
-    public bool draw_connections;
+    public bool draw_connections, draw_chunk_borders, draw_near_player;
     public float min_nav_distance;
     public Vector3Int nav_tree_dimensions;     //dimensions of the entire nav tree in chunks
 
@@ -23,15 +23,17 @@ public class NavTree : MonoBehaviour
     public class NavChunk
     {
         private int index;
+        private Vector3 position;
         private Vector3Int nav_tree_dimensions;
         private List<NavNode> nav_nodes;
         private NavTree nav_tree;
 
-        public NavChunk(int i, Vector3Int n_tree_dim, NavTree tree) {
+        public NavChunk(int i, Vector3Int n_tree_dim, NavTree tree, Vector3 p) {
             index = i;
             nav_nodes = new List<NavNode>();
             nav_tree_dimensions = n_tree_dim;
             nav_tree = tree;
+            position = p;
         }
 
         public List<NavNode> GetNodes() { return nav_nodes; }
@@ -43,6 +45,14 @@ public class NavTree : MonoBehaviour
                 foreach((NavNode, float) connected in nav_nodes[i].connections)
                     Debug.DrawRay(nav_nodes[i].position, connected.Item1.position - nav_nodes[i].position, Color.green);
             }
+        }
+
+        public void DrawBorders()
+        {
+            Vector3 map_dimensions = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGeneration>().GetMapDimensions();
+            Vector3 chunk_bounds = new Vector3(map_dimensions.x / nav_tree_dimensions.x, map_dimensions.y / nav_tree_dimensions.y, map_dimensions.z / nav_tree_dimensions.z);
+            chunk_bounds /= 2.0f;
+            ExtDebug.DrawBox(position, chunk_bounds, Quaternion.identity, Color.white);
         }
 
         //function attempts to add a node, if it is too close to an adjacent node, it will fail returning false
@@ -58,7 +68,7 @@ public class NavTree : MonoBehaviour
         }
         
         //Function helps in getting the index of the adjacent chunk, returns -1 if no such chunk exists
-        int GetAdjacentChunk(Vector3Int direction)
+        public int GetAdjacentChunk(Vector3Int direction)
         {
             //error checking
             if (direction.x != -1 && direction.x != 0 && direction.x != 1)
@@ -198,6 +208,32 @@ public class NavTree : MonoBehaviour
         return chunk_space_int;
     }
 
+    //Function gets the worldspace position given the chunkspace
+    public Vector3 ChunkspaceToWorldSpace(Vector3Int position)
+    {
+        //error checking
+        if (position.x < 0 || position.y < 0 || position.z < 0 ||
+            position.x >= nav_tree_dimensions.x || position.y >= nav_tree_dimensions.y || position.z >= nav_tree_dimensions.z)
+        {
+            Debug.LogWarning($"{position} cannot be converted to worldspace as it does not lie within the confines of the map!, aborting...");
+            return -Vector3.one;
+        }
+
+        //get the back bottom left corner of the map
+        Vector3 map_dimensions = GameObject.FindGameObjectWithTag("TerrainGenerator").GetComponent<TerrainGeneration>().GetMapDimensions();
+        Vector3 back_bottom_left = new Vector3(-map_dimensions.x / 2.0f, -map_dimensions.y / 2.0f, -map_dimensions.z / 2.0f);
+        back_bottom_left.x -= back_bottom_left.x % 2 == 0 ? 0 : 0.5f;
+        back_bottom_left.y -= back_bottom_left.y % 2 == 0 ? 0 : 0.5f;
+        back_bottom_left.z -= back_bottom_left.z % 2 == 0 ? 0 : 0.5f;
+
+        //offset by half the chunk size
+        Vector3 chunk_dimensions = new Vector3(map_dimensions.x / nav_tree_dimensions.x, map_dimensions.y / nav_tree_dimensions.y, map_dimensions.z / nav_tree_dimensions.z);
+        back_bottom_left += chunk_dimensions * 0.5f;
+
+        //calculate the position now
+        return back_bottom_left + new Vector3(position.x * chunk_dimensions.x, position.y * chunk_dimensions.y, position.z * chunk_dimensions.z);
+    }
+
     //Function gets the chunk that a position lies in
     public NavChunk GetChunk(Vector3 position)
     {
@@ -282,7 +318,7 @@ public class NavTree : MonoBehaviour
             {
                 for(int z = 0; z < nav_tree_dimensions.z; z++)
                 {
-                    nav_chunks.Add(new NavChunk(chunk_index, nav_tree_dimensions, this));
+                    nav_chunks.Add(new NavChunk(chunk_index, nav_tree_dimensions, this, ChunkspaceToWorldSpace(new Vector3Int(x, y, z))));
                     chunk_index++;
                 }
             }
@@ -293,9 +329,62 @@ public class NavTree : MonoBehaviour
     {
         if (draw_connections)
         {
-            for(int i=0; i<nav_chunks.Count; i++)
+            if (!draw_near_player)
             {
-                nav_chunks[i].DrawConnections();
+                for (int i = 0; i < nav_chunks.Count; i++)
+                {
+                    nav_chunks[i].DrawConnections();
+                }
+            }
+            else
+            {
+                NavChunk player_chunk = GetChunk(GameObject.FindGameObjectWithTag("Player").transform.position);
+
+                player_chunk.DrawConnections();
+
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        for (int z = -1; z < 2; z++)
+                        {
+                            if (x == 0 && y == 0 && z == 0)
+                                continue;
+                            int adjacent_chunk = player_chunk.GetAdjacentChunk(new Vector3Int(x, y, z));
+                            nav_chunks[adjacent_chunk].DrawConnections();
+                        }
+                    }
+                }
+            }
+        }
+        if (draw_chunk_borders)
+        {
+            if (!draw_near_player)
+            {
+                for (int i = 0; i < nav_chunks.Count; i++)
+                {
+                    nav_chunks[i].DrawBorders();
+                }
+            }
+            else
+            {
+                NavChunk player_chunk = GetChunk(GameObject.FindGameObjectWithTag("Player").transform.position);
+
+                player_chunk.DrawBorders();
+
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        for (int z = -1; z < 2; z++)
+                        {
+                            if (x == 0 && y == 0 && z == 0)
+                                continue;
+                            int adjacent_chunk = player_chunk.GetAdjacentChunk(new Vector3Int(x, y, z));
+                            nav_chunks[adjacent_chunk].DrawBorders();
+                        }
+                    }
+                }
             }
         }
     }
